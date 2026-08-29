@@ -32,6 +32,29 @@ mysql -uroot -p coderzhang_blog < backend/src/main/resources/schema.sql
 
 > 表结构导入后，**数据不用手动插**——后端启动时会自动初始化管理员账号和示例数据（InitDataRunner）。
 
+## 一点五、可选：直接连服务器开发库（不动本机 MySQL）
+
+服务器上已建好独立的开发库 `coderzhang_blog_dev`（与线上生产库完全隔离，容器 MySQL 只监听服务器回环 3307，不暴露公网）。
+
+**1. 开 SSH 隧道**（单独开一个终端保持运行）：
+
+```powershell
+ssh -i "D:\密钥\Ubuntu-lghc.pem" -N -L 13306:127.0.0.1:3307 root@8.133.213.52
+```
+
+**2. 后端环境变量改为**（密码见服务器 `/opt/coderzhang-blog/.env` 的 `MYSQL_PASSWORD`）：
+
+```
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=13306
+MYSQL_DB=coderzhang_blog_dev
+MYSQL_USER=blog
+MYSQL_PASSWORD=<见 .env>
+```
+
+> 好处：本机不用装/配 MySQL；开发数据不会污染线上内容；改坏开发库随时重建（删库后重启后端即可自动初始化）。
+> 注意：隧道断开后后端会报数据库连接失败，重新开隧道即可。
+
 ## 二、启动后端（两种方式任选）
 
 ### 方式 A：IDEA（推荐日常开发）
