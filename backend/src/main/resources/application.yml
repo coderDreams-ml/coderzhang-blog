@@ -1,4 +1,6 @@
 server:
+  # 默认仅监听回环；host 网络部署时避免 8080 暴露公网
+  address: ${SERVER_ADDRESS:127.0.0.1}
   port: 8080
 
 spring:
