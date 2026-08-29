@@ -1,0 +1,38 @@
+# coderzhang-blog 服务器部署编排（MySQL + 后端）
+# 前台静态文件与 Nginx 由宿主机管理（复用现有 HTTPS 证书）
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: blog-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root-change-me}
+      MYSQL_DATABASE: coderzhang_blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-blog-change-me}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # 首次初始化自动建表
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    ports:
+      - "127.0.0.1:3306:3306"
+
+  backend:
+    build: ./backend
+    container_name: blog-backend
+    restart: always
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: coderzhang_blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-blog-change-me}
+      JWT_SECRET: ${JWT_SECRET:-please-change-this-jwt-secret-key-32bytes-min}
+    ports:
+      - "127.0.0.1:8080:8080"   # 只绑本机，由 Nginx 反代
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:

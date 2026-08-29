@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="coderzhang 的个人博客与作品集：全栈开发与 AI 学习记录">
+<title>coderzhang.top · 个人博客 / 作品集</title>
+<style>
+:root{--bg:#0b0f14;--card:#12161d;--border:#232a33;--text:#e6edf3;--muted:#8b949e;--accent:#4da3ff;--code:#79c0ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.7}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(11,15,20,.9);backdrop-filter:blur(8px);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:Consolas,"JetBrains Mono",monospace;font-weight:700;font-size:18px}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px}
+.nav-links a{color:var(--muted);font-size:14px}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+footer{border-top:1px solid var(--border);margin-top:64px;padding:28px 0;text-align:center;color:var(--muted);font-size:13px}
+footer .mono{font-family:Consolas,monospace;color:var(--code)}
+h1,h2,h3{line-height:1.3}
+.mono{font-family:Consolas,"JetBrains Mono",monospace}
+.tag{display:inline-block;padding:2px 10px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--muted);margin:3px 4px 3px 0}
+.tag:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn{display:inline-block;padding:10px 22px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);font-size:14px;transition:.2s}
+.btn:hover{background:var(--accent);color:#04101f;text-decoration:none}
+.btn-ghost{display:inline-block;padding:10px 22px;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:14px;transition:.2s;margin-left:10px}
+.btn-ghost:hover{color:var(--text);border-color:var(--muted);text-decoration:none}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:.2s}
+.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.card h3{margin-bottom:8px;font-size:18px}
+.card p{color:var(--muted);font-size:14px;margin-bottom:12px}
+.card .tags{margin-top:8px}
+.grid{display:grid;gap:20px}
+@media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}}
+.meta{color:var(--muted);font-size:13px}
+.code-block{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:16px;font-family:Consolas,"JetBrains Mono",monospace;font-size:13px;overflow-x:auto;color:var(--code);margin:12px 0}
+a.card{display:block;text-decoration:none}
+a.card:hover{text-decoration:none}
+.social-card h3{color:var(--accent)}
+.social-card p{word-break:break-all;font-family:Consolas,monospace;font-size:13px}
+
+.hero{padding:96px 0 64px}
+.hero h1{font-size:44px;margin-bottom:12px}
+.hero h1 .cursor{color:var(--accent);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .sub{color:var(--muted);font-size:18px;max-width:640px;margin-bottom:28px}
+.hero .terminal{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:18px;font-family:Consolas,monospace;font-size:14px;max-width:560px;margin-top:32px;color:var(--code)}
+.section{padding:48px 0}
+.section-title{font-size:26px;margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.section-title .hash{color:var(--accent);font-family:Consolas,monospace}
+.about p{color:var(--muted);max-width:720px}
+.about ul{margin:14px 0 0 22px;color:var(--muted)}
+.about li{margin-bottom:8px}
+.stats{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap}
+.stat b{font-size:24px;color:var(--accent);font-family:Consolas,monospace}
+.stat span{display:block;color:var(--muted);font-size:13px}
+.group-label{color:var(--muted);font-size:14px;margin:8px 0 16px;font-family:Consolas,monospace}
+.group-label:not(:first-of-type){margin-top:32px}
+.blog-preview{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+
+@media(max-width:640px){
+.container{padding:0 16px}
+.nav{height:52px}
+.nav-links{gap:14px}
+.nav-links a{font-size:13px}
+.logo{font-size:16px}
+.hero{padding:56px 0 40px}
+.hero h1{font-size:30px}
+.hero .sub{font-size:16px}
+.hero .terminal{font-size:12.5px;padding:14px;word-break:break-all}
+.section{padding:36px 0}
+.section-title{font-size:22px}
+.btn,.btn-ghost{padding:9px 16px;font-size:13px}
+.btn-ghost{margin-left:8px}
+.card{padding:20px}
+.card .meta{word-break:break-all}
+article{padding:40px 0}
+article h1{font-size:26px}
+article h2{font-size:19px}
+footer{margin-top:40px}
+}
+</style>
+</head>
+<body>
+
+<header><div class="container"><nav class="nav">
+<a class="logo" href="/">coder<span>zhang</span>.top</a>
+<div class="nav-links">
+<a href="/" style="color:var(--text)">首页</a>
+<a href="/blog/">博客</a>
+<a href="/#projects">项目</a>
+<a href="/#about">关于</a>
+</div>
+</nav></div></header>
+<main class="container">
+<section class="hero">
+<h1>你好，我是 coderDreams<span class="cursor">_</span></h1>
+<p class="sub">苏州科技大学在读，从 Java / Go 全栈一路写过来，目前正头也不回地扎进 AI 大模型。当前进度：<b style="color:var(--text)">模型已经能说话了，就是说得不一定对。</b></p>
+<a class="btn" href="#projects">查看项目</a>
+<a class="btn-ghost" href="/blog/">阅读博客</a>
+<div class="terminal">
+<span style="color:#7ee787">$</span> whoami<br>
+coderDreams —— 苏科大学生 / 全栈与 AI 学徒<br><br>
+<span style="color:#7ee787">$</span> cat /etc/motd<br>
+本站托管于阿里云 ECS · Ubuntu 24.04 · Nginx<br><br>
+<span style="color:#7ee787">$</span> python -c "print('Hello, World')"<br>
+Hello, World
+</div>
+</section>
+
+<section class="section" id="about">
+<h2 class="section-title"><span class="hash">#</span> 关于我</h2>
+<div class="about">
+<p id="about-intro">一名热爱编码与开源的开发者，日常与 Linux、Docker、Nginx 打交道。喜欢把踩过的坑写成博客，把想法做成项目。</p>
+<ul>
+<li>苏州科技大学在读学生</li>
+<li>从 <b style="color:var(--text)">Java 全栈</b>（Spring Boot + Redis）和 <b style="color:var(--text)">Go 微服务</b>（Kitex）起步</li>
+<li>现在的主线是 <b style="color:var(--text)">AI</b>：PyTorch 打基础 → MiniMind 从零复现小语言模型 → RAG 企业知识库实战</li>
+<li>信奉「项目驱动学习」，这里的大多数项目都是学习路上的副产品</li>
+<li>代码写得不算优雅，但注释和踩坑记录一定是最全的</li>
+</ul>
+<div class="stats">
+<div class="stat"><b>4</b><span>精选项目</span></div>
+<div class="stat"><b>2</b><span>篇博客文章</span></div>
+<div class="stat"><b>24.04</b><span>Ubuntu LTS</span></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="skills">
+<h2 class="section-title"><span class="hash">#</span> 技能栈</h2>
+<div id="skills-box">
+<span class="tag">Java / Spring Boot</span>
+<span class="tag">Python / PyTorch</span>
+<span class="tag">MySQL / Redis</span>
+<span class="tag">Docker / Nginx</span>
+<span class="tag">Linux</span>
+<span class="tag">Git</span>
+<span class="tag">AI 辅助编程</span>
+</div>
+</section>
+
+<section class="section" id="projects">
+<h2 class="section-title"><span class="hash">#</span> 项目作品</h2>
+<p class="group-label">🤖 AI 探索</p>
+<div class="grid grid-2" id="project-grid">
+<a class="card" href="https://github.com/coderDreams-ml/minimind-learn" target="_blank" rel="noopener">
+<h3>MiniMind 学习</h3>
+<p>跟着 MiniMind 从零复现一个小语言模型，拆解 Transformer 的每个零件。当前状态：模型能说话，但说的不一定对。</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">LLM</span></div>
+<div class="meta">github.com/coderDreams-ml/minimind-learn →</div>
+</a>
+<a class="card" href="https://gitee.com/coderdreams/little-hill--pytorch-cifar-10" target="_blank" rel="noopener">
+<h3>PyTorch CIFAR-10 实验</h3>
+<p>用 PyTorch 训练图像分类模型，AI 基础课的课后作业，也是我的第一个「炼丹炉」。</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">图像分类</span></div>
+<div class="meta">gitee.com/coderdreams/little-hill--pytorch-cifar-10 →</div>
+</a>
+</div>
+<p class="group-label">🛠️ 效率工具</p>
+<div class="grid grid-2">
+<a class="card" href="https://gitee.com/coderdreams/sust-school-net-script" target="_blank" rel="noopener">
+<h3>校园网自动登录脚本</h3>
+<p>苏科大校园网每天掉线重连的痛，只能用脚本治愈。自动检测断网 → 自动登录，宿舍路由器从此稳如老狗。</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">自动化</span><span class="tag">真实痛点</span></div>
+<div class="meta">gitee.com/coderdreams/sust-school-net-script →</div>
+</a>
+<a class="card" href="https://gitee.com/coderdreams/desktop-memo" target="_blank" rel="noopener">
+<h3>桌面提醒小工具</h3>
+<p>AI 辅助编程写的桌面提醒应用，专治「又忘了交作业」。AI 生成的代码，我负责 debug。</p>
+<div class="tags"><span class="tag">AI 编程</span><span class="tag">桌面应用</span></div>
+<div class="meta">gitee.com/coderdreams/desktop-memo →</div>
+</a>
+</div>
+</section>
+
+<section class="section" id="blog">
+<div class="blog-preview">
+<h2 class="section-title" style="border:none;padding:0;margin:0"><span class="hash">#</span> 最新文章</h2>
+<a href="/blog/">全部文章 →</a>
+</div>
+<div class="grid grid-2" style="margin-top:20px">
+<div class="card">
+<h3>你好，coderzhang.top —— 博客部署手记</h3>
+<p>从一台全新 ECS 到域名解析、Nginx 配置的全过程记录。</p>
+<div class="meta mono">2025-01-15 · 部署</div>
+</div>
+<div class="card">
+<h3>Nginx 配置速查：从入门到反向代理</h3>
+<p>常用配置片段与踩坑笔记：server_name、try_files、proxy_pass。</p>
+<div class="meta mono">2025-01-12 · Nginx</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="contact">
+<h2 class="section-title"><span class="hash">#</span> 联系我 / 社交账号</h2>
+<p class="meta" style="margin-bottom:20px" id="contact-email">邮箱：hello@coderzhang.top</p>
+<div class="grid grid-2" id="social-grid">
+<a class="card social-card" href="https://github.com/coderDreams-ml" target="_blank" rel="noopener">
+<h3>GitHub</h3>
+<p>github.com/coderDreams-ml</p>
+<span class="meta">代码仓库 →</span>
+</a>
+<a class="card social-card" href="https://gitee.com/coderdreams/" target="_blank" rel="noopener">
+<h3>Gitee</h3>
+<p>gitee.com/coderdreams</p>
+<span class="meta">国内镜像仓库 →</span>
+</a>
+<a class="card social-card" href="https://juejin.cn/user/127981962405726" target="_blank" rel="noopener">
+<h3>掘金</h3>
+<p>juejin.cn/user/127981962405726</p>
+<span class="meta">技术文章 →</span>
+</a>
+<a class="card social-card" href="https://space.bilibili.com/353529000" target="_blank" rel="noopener">
+<h3>Bilibili</h3>
+<p>space.bilibili.com/353529000</p>
+<span class="meta">视频 / 日常 →</span>
+</a>
+</div>
+</section>
+</main>
+<footer><div class="container">
+© 2025 coderzhang · 由 <span class="mono">Nginx on Ubuntu 24.04</span> 驱动 · hello@coderzhang.top
+<div style="margin-top:10px">
+<a href="https://github.com/coderDreams-ml" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
+<a href="https://gitee.com/coderdreams/" target="_blank" rel="noopener">Gitee</a> &nbsp;·&nbsp;
+<a href="https://juejin.cn/user/127981962405726" target="_blank" rel="noopener">掘金</a>
+</div>
+</div></footer>
+<script src="/js/site.js" defer></script>
+</body>
+</html>
