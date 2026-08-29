@@ -91,6 +91,10 @@ async function renderProfile() {
     const s = d.settings || {};
     const introEl = document.getElementById('about-intro');
     if (introEl && s.intro) introEl.textContent = s.intro;
+    const heroIntro = document.getElementById('hero-intro');
+    if (heroIntro && s.intro) heroIntro.textContent = s.intro;
+    const terminalEl = document.getElementById('hero-terminal');
+    if (terminalEl && s.terminal) renderTerminal(terminalEl, s.terminal);
     const skillsEl = document.getElementById('skills-box');
     if (skillsEl && s.skills) {
       const items = s.skills.split(/[,，]/).map(x => x.trim()).filter(Boolean);
@@ -109,6 +113,27 @@ async function renderProfile() {
   } catch (e) {
     console.log('profile api unavailable');
   }
+}
+
+// 渲染终端文本：以 "$ " 开头的行给 $ 提示符染绿
+function renderTerminal(box, text) {
+  box.innerHTML = '';
+  const lines = String(text).split('\n');
+  lines.forEach((line, i) => {
+    const trimmed = line.replace(/^\s+/, '');
+    const div = document.createElement('div');
+    if (trimmed.startsWith('$ ')) {
+      const dollar = document.createElement('span');
+      dollar.style.color = '#7ee787';
+      dollar.textContent = '$ ';
+      div.appendChild(dollar);
+      div.appendChild(document.createTextNode(trimmed.slice(2)));
+    } else {
+      div.textContent = line;
+    }
+    if (i === lines.length - 1) div.style.minHeight = '1em';
+    box.appendChild(div);
+  });
 }
 
 // 上报一次访问（IP 由后端哈希后落库，不存明文）

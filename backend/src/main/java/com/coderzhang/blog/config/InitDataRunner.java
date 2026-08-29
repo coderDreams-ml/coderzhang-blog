@@ -150,7 +150,8 @@ public class InitDataRunner implements CommandLineRunner {
                 setting("intro", "你好，我是 coderDreams。苏州科技大学在读，从 Java / Go 全栈一路写过来，目前正头也不回地扎进 AI 大模型。"),
                 setting("about", "从 Java 全栈（Spring Boot + Redis）和 Go 微服务（Kitex）起步；现在的主线是 AI：PyTorch 打基础 → MiniMind 从零复现小语言模型 → RAG 企业知识库实战。信奉「项目驱动学习」，这里的大多数项目都是学习路上的副产品。"),
                 setting("skills", "Java / Spring Boot,Python / PyTorch,MySQL / Redis,Docker / Nginx,Linux,Git,AI 辅助编程"),
-                setting("email", "hello@coderzhang.top")
+                setting("email", "hello@coderzhang.top"),
+                setting("terminal", "$ whoami\ncoderDreams —— 苏科大学生 / 全栈与 AI 学徒\n\n$ cat /etc/motd\n本站托管于阿里云 ECS · Ubuntu 24.04 · Nginx\n\n$ python -c \"print('Hello, World')\"\nHello, World")
         ).forEach(settingMapper::insert);
         log.info("init settings");
     }
