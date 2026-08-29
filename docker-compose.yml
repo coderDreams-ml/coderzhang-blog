@@ -15,8 +15,7 @@ services:
       - mysql-data:/var/lib/mysql
       # 首次初始化自动建表
       - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
-    ports:
-      - "127.0.0.1:3306:3306"
+    # 不映射宿主端口：backend 通过 compose 网络直连，避免与宿主机已有 MySQL 冲突
 
   backend:
     build: ./backend
