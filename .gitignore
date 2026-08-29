@@ -22,3 +22,6 @@ Thumbs.db
 .env
 *.pem
 *.key
+
+# 本地启动脚本（含数据库密码，勿提交）
+dev-backend.bat

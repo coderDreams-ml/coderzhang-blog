@@ -64,18 +64,21 @@ MYSQL_PASSWORD=<见 /root/.db_credentials>
    MYSQL_USER=root;MYSQL_PASSWORD=你的密码
    ```
 
-### 方式 B：命令行
+### 方式 B：双击启动（推荐日常开发）
 
-```powershell
-# 指向 IDEA 自带 JDK
-$env:JAVA_HOME = 'C:\Users\admin\AppData\Local\Programs\IntelliJ IDEA\jbr'
-# 本机 MySQL 账号密码
-$env:MYSQL_USER = 'root'
-$env:MYSQL_PASSWORD = '你的密码'
+1. 先双击 `D:\Desktop\agent_util_scripts\数据库隧道\tunnel.bat` 开隧道
+2. 再双击仓库根目录的 **`dev-backend.bat`**（自动设置 JDK、dev 配置、连接服务器开发库，密码已在脚本内）
 
-cd D:\Desktop\agent_util_scripts\coderzhang-blog\backend
-mvn -s ..\..\mvn-settings.xml spring-boot:run
-```
+> `dev-backend.bat` 含数据库密码，已被 .gitignore 排除；仓库里的 `dev-backend.example.bat` 是无密码模板。
+
+### 方式 C：IDEA 配置（一次性，之后点运行即可）
+
+1. Run → Edit Configurations → 新建 Spring Boot → Main class 选 `BlogApplication`
+2. **Active profiles** 填 `dev`
+3. **Environment variables** 填 `DEV_DB_PASSWORD=DOnkYQxvpaS56ZK8yFY1`
+4. 以后直接点 ▶ 运行
+
+> IDEA 方式同样要求隧道已开启（dev 配置指向 127.0.0.1:13306）。
 
 > 注：如果遇到 `Unknown host maven-central.aliyun.com`，说明当前网络解析不了旧阿里云镜像域名，用仓库外的 `mvn-settings.xml`（指向 maven.aliyun.com）即可。
 
