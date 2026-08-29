@@ -33,4 +33,14 @@ public class AuthService {
     }
 
     public String encode(String raw) { return encoder.encode(raw); }
+
+    /** 修改密码：校验原密码后更新 */
+    public void changePassword(Long userId, String oldPassword, String newPassword) {
+        User user = userMapper.selectById(userId);
+        if (user == null || !encoder.matches(oldPassword, user.getPassword())) {
+            throw new BizException("原密码不正确");
+        }
+        user.setPassword(encoder.encode(newPassword));
+        userMapper.updateById(user);
+    }
 }
