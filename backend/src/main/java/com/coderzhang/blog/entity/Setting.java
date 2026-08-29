@@ -12,8 +12,9 @@ import lombok.Data;
 public class Setting {
     @TableId(type = IdType.AUTO)
     private Long id;
+    /** 列名 k（key 是 MySQL 保留字，字段名避开） */
     @TableField("k")
-    private String key;
+    private String settingKey;
     @TableField("v")
-    private String value;
+    private String settingValue;
 }

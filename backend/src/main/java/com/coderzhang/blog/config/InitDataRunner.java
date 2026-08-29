@@ -157,8 +157,8 @@ public class InitDataRunner implements CommandLineRunner {
 
     private Setting setting(String k, String v) {
         Setting s = new Setting();
-        s.setKey(k);
-        s.setValue(v);
+        s.setSettingKey(k);
+        s.setSettingValue(v);
         return s;
     }
 }

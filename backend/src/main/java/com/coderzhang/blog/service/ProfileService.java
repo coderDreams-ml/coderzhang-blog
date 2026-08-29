@@ -25,21 +25,21 @@ public class ProfileService {
     /** 读取全部设置，返回 key -> value */
     public Map<String, String> getSettings() {
         Map<String, String> map = new HashMap<>();
-        settingMapper.selectList(null).forEach(s -> map.put(s.getKey(), s.getValue()));
+        settingMapper.selectList(null).forEach(s -> map.put(s.getSettingKey(), s.getSettingValue()));
         return map;
     }
 
     /** 批量保存设置（key 已存在则覆盖） */
     public void saveSettings(Map<String, String> settings) {
         settings.forEach((k, v) -> {
-            Setting exist = settingMapper.selectOne(new LambdaQueryWrapper<Setting>().eq(Setting::getKey, k));
+            Setting exist = settingMapper.selectOne(new LambdaQueryWrapper<Setting>().eq(Setting::getSettingKey, k));
             if (exist == null) {
                 Setting s = new Setting();
-                s.setKey(k);
-                s.setValue(v);
+                s.setSettingKey(k);
+                s.setSettingValue(v);
                 settingMapper.insert(s);
             } else {
-                exist.setValue(v);
+                exist.setSettingValue(v);
                 settingMapper.updateById(exist);
             }
         });
