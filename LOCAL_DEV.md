@@ -34,22 +34,18 @@ mysql -uroot -p coderzhang_blog < backend/src/main/resources/schema.sql
 
 ## 一点五、可选：直接连服务器开发库（不动本机 MySQL）
 
-服务器上已建好独立的开发库 `coderzhang_blog_dev`（与线上生产库完全隔离，容器 MySQL 只监听服务器回环 3307，不暴露公网）。
+服务器宿主 MySQL 上已建好独立的开发库 `coderzhang_blog_dev`（与线上生产库完全隔离，MySQL 只监听服务器回环，公网不可达）。
 
-**1. 开 SSH 隧道**（单独开一个终端保持运行）：
+**1. 开 SSH 隧道**：双击 `D:\Desktop\agent_util_scripts\数据库隧道\tunnel.bat`（保持窗口开启），本机 `127.0.0.1:13306` 即直达服务器 MySQL。
 
-```powershell
-ssh -i "D:\密钥\Ubuntu-lghc.pem" -N -L 13306:127.0.0.1:3307 root@8.133.213.52
-```
-
-**2. 后端环境变量改为**（密码见服务器 `/opt/coderzhang-blog/.env` 的 `MYSQL_PASSWORD`）：
+**2. 后端环境变量改为**（账号密码见服务器 `/root/.db_credentials`）：
 
 ```
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=13306
 MYSQL_DB=coderzhang_blog_dev
-MYSQL_USER=blog
-MYSQL_PASSWORD=<见 .env>
+MYSQL_USER=app
+MYSQL_PASSWORD=<见 /root/.db_credentials>
 ```
 
 > 好处：本机不用装/配 MySQL；开发数据不会污染线上内容；改坏开发库随时重建（删库后重启后端即可自动初始化）。
