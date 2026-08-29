@@ -70,3 +70,12 @@ CREATE TABLE IF NOT EXISTS setting (
     k VARCHAR(50) NOT NULL UNIQUE,
     v TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS visit_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    ip_hash VARCHAR(64) NOT NULL COMMENT '访客 IP 的 SHA-256 哈希（不存明文，保护隐私）',
+    path VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    KEY idx_created (created_at),
+    KEY idx_ip (ip_hash)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

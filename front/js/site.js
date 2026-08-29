@@ -111,8 +111,33 @@ async function renderProfile() {
   }
 }
 
+// 上报一次访问（IP 由后端哈希后落库，不存明文）
+function reportVisit() {
+  fetch(API + '/visit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: location.pathname })
+  }).catch(() => {});
+}
+
+// 渲染访客统计
+async function renderVisitStats() {
+  const uv = document.getElementById('visit-uv');
+  const pv = document.getElementById('visit-pv');
+  if (!uv && !pv) return;
+  try {
+    const d = await fetchJSON(API + '/stats');
+    if (uv) uv.textContent = d.uv ?? '--';
+    if (pv) pv.textContent = d.pv ?? '--';
+  } catch (e) {
+    console.log('stats api unavailable');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderLinks();
   renderProfile();
+  reportVisit();
+  renderVisitStats();
 });

@@ -37,7 +37,9 @@ onMounted(async () => {
       { label: '文章总数', value: d.articleTotal },
       { label: '已发布', value: d.articlePublished },
       { label: '展示项目', value: d.projectTotal },
-      { label: '总浏览量', value: d.totalViews }
+      { label: '文章总浏览', value: d.totalViews },
+      { label: '累计访客 UV', value: d.uv ?? '--' },
+      { label: '站点总访问 PV', value: d.pv ?? '--' }
     ]
   } catch (e) { /* 后端未启动时静默 */ }
 })
