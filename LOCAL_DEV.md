@@ -75,7 +75,7 @@ MYSQL_PASSWORD=<见 /root/.db_credentials>
 
 1. Run → Edit Configurations → 新建 Spring Boot → Main class 选 `BlogApplication`
 2. **Active profiles** 填 `dev`
-3. **Environment variables** 填 `DEV_DB_PASSWORD=DOnkYQxvpaS56ZK8yFY1`
+3. **Environment variables** 填 `DEV_DB_PASSWORD=<见 dev-backend.bat>`
 4. 以后直接点 ▶ 运行
 
 > IDEA 方式同样要求隧道已开启（dev 配置指向 127.0.0.1:13306）。
