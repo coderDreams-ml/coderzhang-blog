@@ -12,24 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Build admin
-        working-directory: admin
-        run: |
-          npm install
-          npm run build
-
-      - name: Upload static files (scp)
+      - name: Upload front (scp)
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "admin/dist,front"
+          source: "front"
           target: /tmp/coderzhang-deploy
 
       - name: Deploy on server (ssh)
@@ -40,11 +29,9 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             set -e
-            # 1. 前台静态文件 + 后台管理界面
-            mkdir -p /var/www/coderzhang.top/admin
-            cp -a /tmp/coderzhang-deploy/admin/dist/. /var/www/coderzhang.top/admin/
+            # 1. 前台静态文件（后台管理不在公网部署，本地运行）
+            mkdir -p /var/www/coderzhang.top
             cp -a /tmp/coderzhang-deploy/front/. /var/www/coderzhang.top/
-            rm -rf /tmp/coderzhang-deploy
             chown -R www-data:www-data /var/www/coderzhang.top
             # 2. 后端：拉取代码并重建容器
             cd /opt/coderzhang-blog

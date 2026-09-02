@@ -9,7 +9,8 @@ export default defineConfig({
     proxy: {
       // 本地开发：/api 转发到后端 8080
       '/api': {
-        target: 'http://localhost:8080',
+        // 本地管理后台直连线上 API（修改的是生产数据库，操作前建议先备份）
+        target: 'https://coderzhang.top',
         changeOrigin: true
       }
     }
