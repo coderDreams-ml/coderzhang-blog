@@ -4,6 +4,7 @@
       <el-card>
         <template #header>站点信息（前台「关于我」从这里读取）</template>
         <el-form label-width="90px">
+          <el-form-item label="首页标题"><el-input v-model="form.heroTitle" placeholder="如：你好，我是 coderDreams" /></el-form-item>
           <el-form-item label="首页副标题"><el-input v-model="form.intro" type="textarea" :rows="3" /></el-form-item>
           <el-form-item label="首页终端"><el-input v-model="form.terminal" type="textarea" :rows="6" placeholder="$ whoami&#10;coderDreams —— 苏科大学生 / 全栈与 AI 学徒" /></el-form-item>
           <el-form-item label="关于我"><el-input v-model="form.about" type="textarea" :rows="5" /></el-form-item>
@@ -44,14 +45,14 @@ import { reactive, ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import http from '../api'
 
-const form = reactive({ intro: '', terminal: '', about: '', skills: '', email: '', icp: '' })
+const form = reactive({ heroTitle: '', intro: '', terminal: '', about: '', skills: '', email: '', icp: '' })
 const links = ref([])
 const linkForm = reactive({ id: null, platform: '', url: '' })
 
 async function load() {
   const d = await http.get('/admin/profile')
   Object.assign(form, {
-    intro: d.intro || '', terminal: d.terminal || '',
+    heroTitle: d.heroTitle || '', intro: d.intro || '', terminal: d.terminal || '',
     about: d.about || '', skills: d.skills || '', email: d.email || '', icp: d.icp || ''
   })
   links.value = await http.get('/admin/links')

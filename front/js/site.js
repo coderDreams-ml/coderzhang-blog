@@ -93,6 +93,8 @@ async function renderProfile() {
     if (introEl && s.intro) introEl.textContent = s.intro;
     const heroIntro = document.getElementById('hero-intro');
     if (heroIntro && s.intro) heroIntro.textContent = s.intro;
+    const heroTitle = document.getElementById('hero-title-text');
+    if (heroTitle && s.heroTitle) heroTitle.textContent = s.heroTitle;
     const terminalEl = document.getElementById('hero-terminal');
     if (terminalEl && s.terminal) renderTerminal(terminalEl, s.terminal);
     const skillsEl = document.getElementById('skills-box');
