@@ -119,6 +119,34 @@ async function renderProfile() {
   }
 }
 
+// 主页最新文章：从 API 拉取真实文章，可点击进入详情
+async function renderLatestPosts() {
+  const box = document.getElementById('latest-posts');
+  if (!box) return;
+  try {
+    const d = await fetchJSON('/api/public/articles?page=1&size=2');
+    if (!d.list || !d.list.length) return;
+    box.innerHTML = '';
+    d.list.forEach(a => {
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = '/blog/article.html?id=' + a.id;
+      const h = document.createElement('h3');
+      h.textContent = a.title;
+      const p = document.createElement('p');
+      p.textContent = a.summary || '';
+      const meta = document.createElement('div');
+      meta.className = 'meta mono';
+      const date = (a.createdAt || '').replace('T', ' ').slice(0, 10);
+      meta.textContent = date + ' · ' + (a.categoryName || '未分类') + ' · 阅读全文 →';
+      card.append(h, p, meta);
+      box.appendChild(card);
+    });
+  } catch (e) {
+    console.log('latest posts api unavailable, keep static fallback');
+  }
+}
+
 // 渲染终端文本：以 "$ " 开头的行给 $ 提示符染绿
 function renderTerminal(box, text) {
   box.innerHTML = '';
@@ -167,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderLinks();
   renderProfile();
+  renderLatestPosts();
   reportVisit();
   renderVisitStats();
 });
