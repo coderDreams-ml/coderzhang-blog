@@ -110,6 +110,8 @@ async function renderProfile() {
     }
     const emailEl = document.getElementById('contact-email');
     if (emailEl && s.email) emailEl.textContent = '邮箱：' + s.email;
+    const icpEl = document.getElementById('icp-link');
+    if (icpEl && s.icp) { icpEl.textContent = s.icp; icpEl.style.display = 'inline'; }
   } catch (e) {
     console.log('profile api unavailable');
   }

@@ -50,6 +50,18 @@ async function load(page) {
   }
 }
 
+async function renderIcp() {
+  try {
+    const d = await fetchJSON('/api/public/profile');
+    const el = document.getElementById('icp-link');
+    if (el && d.settings && d.settings.icp) {
+      el.textContent = d.settings.icp;
+      el.style.display = 'inline';
+    }
+  } catch (e) { /* ignore */ }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   load(1);
+  renderIcp();
 });

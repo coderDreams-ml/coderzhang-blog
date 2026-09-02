@@ -34,4 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('article-body').innerHTML =
       '<p class="meta">文章加载失败：' + e.message + '</p>';
   }
+  renderIcp();
 });
+
+async function renderIcp() {
+  try {
+    const d = await fetchJSON('/api/public/profile');
+    const el = document.getElementById('icp-link');
+    if (el && d.settings && d.settings.icp) {
+      el.textContent = d.settings.icp;
+      el.style.display = 'inline';
+    }
+  } catch (e) { /* ignore */ }
+}

@@ -9,6 +9,7 @@
           <el-form-item label="关于我"><el-input v-model="form.about" type="textarea" :rows="5" /></el-form-item>
           <el-form-item label="技能栈"><el-input v-model="form.skills" placeholder="用英文逗号分隔" /></el-form-item>
           <el-form-item label="邮箱"><el-input v-model="form.email" /></el-form-item>
+          <el-form-item label="备案号"><el-input v-model="form.icp" placeholder="如：苏ICP备XXXXXXXX号-1" /></el-form-item>
           <el-form-item>
             <el-button type="primary" @click="saveProfile">保存设置</el-button>
           </el-form-item>
@@ -43,7 +44,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import http from '../api'
 
-const form = reactive({ intro: '', terminal: '', about: '', skills: '', email: '' })
+const form = reactive({ intro: '', terminal: '', about: '', skills: '', email: '', icp: '' })
 const links = ref([])
 const linkForm = reactive({ id: null, platform: '', url: '' })
 
@@ -51,7 +52,7 @@ async function load() {
   const d = await http.get('/admin/profile')
   Object.assign(form, {
     intro: d.intro || '', terminal: d.terminal || '',
-    about: d.about || '', skills: d.skills || '', email: d.email || ''
+    about: d.about || '', skills: d.skills || '', email: d.email || '', icp: d.icp || ''
   })
   links.value = await http.get('/admin/links')
 }
