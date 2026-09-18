@@ -12,7 +12,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.7",
     "element-plus": "^2.8.6",
-    "md-editor-v3": "^4.21.2",
+    "md-editor-v3": "^6.5.4",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
